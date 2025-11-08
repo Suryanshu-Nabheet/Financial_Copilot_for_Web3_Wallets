@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "./providers";
+import { siteConfig } from "./metadata";
 
-export const metadata: Metadata = {
-  title: "AI Financial Copilot for Web3 Wallets",
-  description: "AI-powered financial insights for your Web3 wallet",
-};
+export const metadata: Metadata = siteConfig;
 
 export default function RootLayout({
   children,
@@ -13,11 +11,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>
   );
 }
-

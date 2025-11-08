@@ -47,26 +47,31 @@ export function GoalSimulator() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-gray-900 rounded-xl border border-gray-800 p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <Sparkles className="w-5 h-5 text-purple-400" />
-        <h2 className="text-xl font-semibold">Goal Simulator</h2>
+    <div className="h-full flex flex-col gradient-bg-card-premium rounded-2xl p-6">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-3 rounded-xl bg-gradient-to-br from-pink-600/20 to-blue-600/20 shadow-lg">
+          <Sparkles className="w-5 h-5 gradient-text-gradient" />
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold gradient-text-gradient">Goal Simulator</h2>
+          <p className="text-xs text-gray-400 mt-0.5">AI Strategy Planning</p>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="mb-4">
+      <form onSubmit={handleSubmit} className="mb-6">
         <div className="flex gap-2">
           <input
             type="text"
             value={goalText}
             onChange={(e) => setGoalText(e.target.value)}
             placeholder="e.g., How do I grow $1,000 to $5,000 in 6 months?"
-            className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="flex-1 px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 backdrop-blur-sm transition-all"
             disabled={isLoading}
           />
           <button
             type="submit"
             disabled={isLoading || !goalText.trim()}
-            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+            className="px-5 py-3 btn-gradient rounded-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 font-semibold"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -84,7 +89,7 @@ export function GoalSimulator() {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm"
+              className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-400 text-sm backdrop-blur-sm"
             >
               {error}
             </motion.div>
@@ -96,50 +101,50 @@ export function GoalSimulator() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-4"
             >
-              <div className="p-4 bg-gray-800 rounded-lg">
-                <h3 className="text-sm font-semibold text-gray-400 mb-2">
+              <div className="p-5 bg-black/40 rounded-xl border border-white/10 backdrop-blur-sm">
+                <h3 className="text-sm font-semibold text-gray-300 mb-3 gradient-text-blue">
                   Strategy
                 </h3>
-                <p className="text-white">{strategy.strategy}</p>
+                <p className="text-gray-200 leading-relaxed">{strategy.strategy}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-gray-800 rounded-lg">
-                  <h3 className="text-sm font-semibold text-gray-400 mb-2">
+                <div className="p-5 bg-black/40 rounded-xl border border-white/10 backdrop-blur-sm">
+                  <h3 className="text-sm font-semibold text-gray-300 mb-2 gradient-text-pink">
                     Timeline
                   </h3>
-                  <p className="text-white font-semibold">{strategy.timeline}</p>
+                  <p className="text-white font-bold text-lg">{strategy.timeline}</p>
                 </div>
-                <div className="p-4 bg-gray-800 rounded-lg">
-                  <h3 className="text-sm font-semibold text-gray-400 mb-2">
+                <div className="p-5 bg-black/40 rounded-xl border border-white/10 backdrop-blur-sm">
+                  <h3 className="text-sm font-semibold text-gray-300 mb-2 gradient-text-blue">
                     Expected Return
                   </h3>
-                  <p className="text-white font-semibold neon-blue">
+                  <p className="text-white font-bold text-lg gradient-text-gradient">
                     {strategy.expectedReturn}
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-800 rounded-lg">
-                <h3 className="text-sm font-semibold text-gray-400 mb-2">
+              <div className="p-5 bg-black/40 rounded-xl border border-white/10 backdrop-blur-sm">
+                <h3 className="text-sm font-semibold text-gray-300 mb-3 gradient-text-pink">
                   Risk Rating
                 </h3>
-                <div className="flex items-center gap-2">
-                  <div className="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 h-3 bg-gray-800/50 rounded-full overflow-hidden border border-white/10">
                     <div
-                      className="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500"
+                      className="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 transition-all duration-500"
                       style={{ width: `${(strategy.risk / 10) * 100}%` }}
                     />
                   </div>
-                  <span className="text-white font-semibold">{strategy.risk}/10</span>
+                  <span className="text-white font-bold text-lg min-w-[3rem]">{strategy.risk}/10</span>
                 </div>
               </div>
 
-              <div className="p-4 bg-gray-800 rounded-lg">
-                <h3 className="text-sm font-semibold text-gray-400 mb-2">
+              <div className="p-5 bg-black/40 rounded-xl border border-white/10 backdrop-blur-sm">
+                <h3 className="text-sm font-semibold text-gray-300 mb-3 gradient-text-blue">
                   Actionable Steps
                 </h3>
-                <p className="text-white text-sm">{strategy.suggestion}</p>
+                <p className="text-gray-200 text-sm leading-relaxed">{strategy.suggestion}</p>
               </div>
             </motion.div>
           )}

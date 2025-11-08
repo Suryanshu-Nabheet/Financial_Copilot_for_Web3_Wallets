@@ -1,25 +1,28 @@
 # AI Financial Copilot for Web3 Wallets
 
-A full-stack Next.js application that connects to crypto wallets, analyzes transaction data, and provides AI-powered financial insights.
+A production-ready, full-stack Next.js application that connects to crypto wallets, analyzes transaction data, and provides AI-powered financial insights with a professional enterprise-grade UI.
 
 ## 🚀 Features
 
-- **Wallet Connection**: Connect MetaMask or other injected wallets
-- **Transaction Analysis**: Fetch and analyze ETH and ERC-20 transactions
-- **AI Insights**: Get personalized insights about gas fees, portfolio diversification, and trading opportunities
-- **Goal Simulator**: Ask questions like "How do I grow $1,000 to $5,000 in 6 months?" and get AI-generated strategies
-- **Portfolio Charts**: Visualize your transaction trends over time
-- **Dark Theme**: Beautiful dark UI with neon accents
+- **Professional Landing Page**: Beautiful, conversion-optimized landing page with feature highlights
+- **Wallet Connection**: Seamless MetaMask and Web3 wallet integration
+- **Transaction Analysis**: Real-time fetching and analysis of ETH and ERC-20 transactions
+- **AI-Powered Insights**: Get personalized insights about gas fees, portfolio diversification, and trading opportunities
+- **Goal Simulator**: Interactive AI-driven financial goal planning and strategy generation
+- **Portfolio Analytics**: Beautiful charts and visualizations of transaction trends
+- **Enterprise UI**: Professional dark theme with gradient accents and smooth animations
+- **Production Ready**: Optimized for performance, SEO, and scalability
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 14 (App Router), TypeScript, TailwindCSS, Framer Motion
-- **Web3**: Viem, Wagmi
-- **AI**: OpenAI API
-- **Vector Storage**: Pinecone DB
-- **State Management**: Zustand
+- **Frontend**: Next.js 15 (App Router), TypeScript, TailwindCSS, Framer Motion
+- **Web3**: Viem, Wagmi (v2.19.2)
+- **AI**: OpenAI API (GPT-4o-mini)
+- **Vector Storage**: Pinecone DB (optional)
+- **State Management**: Zustand with persistence
 - **Charts**: Recharts
 - **Icons**: Lucide React
+- **Fonts**: Inter (Google Fonts)
 
 ## 📦 Installation
 
@@ -114,10 +117,24 @@ npm run dev
 
 1. Push your code to GitHub
 2. Import your repository to [Vercel](https://vercel.com)
-3. Add your environment variables in Vercel dashboard
+3. Add your environment variables in Vercel dashboard:
+   - Go to Project Settings → Environment Variables
+   - Add all variables from `.env.example`
 4. Deploy!
 
 The app will be live at `https://your-app.vercel.app`
+
+### Quick Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/your-repo)
+
+### Other Platforms
+
+See `DEPLOYMENT.md` for detailed instructions on:
+- Netlify
+- Railway
+- AWS Amplify
+- Docker deployment
 
 ## 🔒 Security Notes
 

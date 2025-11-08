@@ -1,12 +1,27 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let openai: OpenAI | null = null;
+
+function getOpenAIClient(): OpenAI | null {
+  if (!openai) {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.warn("OPENAI_API_KEY is not set - AI features will be disabled");
+      return null;
+    }
+    openai = new OpenAI({ apiKey });
+  }
+  return openai;
+}
 
 export async function generateEmbedding(text: string): Promise<number[]> {
   try {
-    const response = await openai.embeddings.create({
+    const client = getOpenAIClient();
+    if (!client) {
+      // Return dummy embedding if OpenAI is not configured
+      return new Array(1536).fill(0);
+    }
+    const response = await client.embeddings.create({
       model: "text-embedding-3-small",
       input: text,
     });
@@ -20,6 +35,19 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 
 export async function generateInsights(transactions: any[]): Promise<any[]> {
   try {
+    const client = getOpenAIClient();
+    if (!client) {
+      // Return default insights if OpenAI is not configured
+      return [
+        {
+          title: "AI features require configuration",
+          description: "Please set OPENAI_API_KEY in your environment variables to enable AI insights.",
+          impactScore: 0,
+          type: "general",
+        },
+      ];
+    }
+    
     const prompt = `
 Analyze the following wallet transactions and generate 3-5 actionable insights. Focus on:
 - Gas fee trends and optimization opportunities
@@ -50,7 +78,7 @@ Example format:
 Return ONLY valid JSON, no markdown formatting.
 `;
 
-    const response = await openai.chat.completions.create({
+    const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
@@ -78,6 +106,18 @@ export async function generateGoalStrategy(
   marketData: any
 ): Promise<any> {
   try {
+    const client = getOpenAIClient();
+    if (!client) {
+      // Return default strategy if OpenAI is not configured
+      return {
+        strategy: "Please set OPENAI_API_KEY in your environment variables to enable AI goal simulation.",
+        timeline: "N/A",
+        risk: 5,
+        suggestion: "Configure your OpenAI API key to get personalized strategies.",
+        expectedReturn: "N/A",
+      };
+    }
+    
     const prompt = `
 The user has the following financial goal: "${goalText}"
 
@@ -103,7 +143,7 @@ Return a JSON object with:
 Return ONLY valid JSON, no markdown formatting.
 `;
 
-    const response = await openai.chat.completions.create({
+    const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.8,

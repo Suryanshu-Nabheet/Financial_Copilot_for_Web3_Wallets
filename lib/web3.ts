@@ -50,8 +50,8 @@ export async function getTransactions(
           to: tx.to,
           value: formatEther(BigInt(tx.value || "0")),
           timestamp: parseInt(tx.timeStamp),
-          gasUsed: formatUnits(BigInt(tx.gasUsed || "0"), "gwei"),
-          gasPrice: formatUnits(BigInt(tx.gasPrice || "0"), "gwei"),
+          gasUsed: formatUnits(BigInt(tx.gasUsed || "0"), 9), // 9 decimals for gwei
+          gasPrice: formatUnits(BigInt(tx.gasPrice || "0"), 9), // 9 decimals for gwei
         }));
       }
     }

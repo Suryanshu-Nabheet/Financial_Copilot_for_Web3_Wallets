@@ -48,47 +48,53 @@ export function PortfolioChart() {
 
   if (chartData.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center bg-gray-900 rounded-xl border border-gray-800">
-        <p className="text-gray-500">No transaction data available</p>
+      <div className="h-80 flex items-center justify-center gradient-bg-card rounded-2xl border border-white/10">
+        <p className="text-gray-400">No transaction data available</p>
       </div>
     );
   }
 
   return (
-    <div className="h-64 bg-gray-900 rounded-xl border border-gray-800 p-4">
+    <div className="h-80 gradient-bg-card rounded-2xl border border-white/10 p-6 backdrop-blur-sm">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
           <XAxis
             dataKey="date"
-            stroke="#9ca3af"
+            stroke="rgba(255, 255, 255, 0.5)"
             style={{ fontSize: "12px" }}
           />
-          <YAxis stroke="#9ca3af" style={{ fontSize: "12px" }} />
+          <YAxis stroke="rgba(255, 255, 255, 0.5)" style={{ fontSize: "12px" }} />
           <Tooltip
             contentStyle={{
-              backgroundColor: "#1f2937",
-              border: "1px solid #374151",
-              borderRadius: "8px",
+              backgroundColor: "rgba(0, 0, 0, 0.8)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              borderRadius: "12px",
+              backdropFilter: "blur(10px)",
             }}
-            labelStyle={{ color: "#fff" }}
+            labelStyle={{ color: "#fff", fontWeight: "bold" }}
+            itemStyle={{ color: "#fff" }}
           />
-          <Legend />
+          <Legend 
+            wrapperStyle={{ color: "rgba(255, 255, 255, 0.8)" }}
+          />
           <Line
             type="monotone"
             dataKey="value"
-            stroke="#00f0ff"
-            strokeWidth={2}
+            stroke="#3b82f6"
+            strokeWidth={3}
             name="ETH Value"
             dot={false}
+            strokeDasharray=""
           />
           <Line
             type="monotone"
             dataKey="gas"
-            stroke="#b026ff"
-            strokeWidth={2}
+            stroke="#ec4899"
+            strokeWidth={3}
             name="Gas (Gwei)"
             dot={false}
+            strokeDasharray=""
           />
         </LineChart>
       </ResponsiveContainer>

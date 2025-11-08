@@ -2,15 +2,24 @@ import { Pinecone } from "@pinecone-database/pinecone";
 
 let pineconeClient: Pinecone | null = null;
 
-export function getPineconeClient(): Pinecone {
-  if (!pineconeClient) {
-    const apiKey = process.env.PINECONE_API_KEY;
-    if (!apiKey) {
-      throw new Error("PINECONE_API_KEY is not set");
+export function getPineconeClient(): Pinecone | null {
+  try {
+    if (!pineconeClient) {
+      const apiKey = process.env.PINECONE_API_KEY;
+      if (!apiKey) {
+        console.warn("PINECONE_API_KEY is not set - Pinecone features will be disabled");
+        return null;
+      }
+      // Pinecone v1.x only needs apiKey, no environment needed
+      pineconeClient = new Pinecone({ 
+        apiKey,
+      } as any); // Type assertion to handle type mismatch
     }
-    pineconeClient = new Pinecone({ apiKey });
+    return pineconeClient;
+  } catch (error) {
+    console.error("Error initializing Pinecone client:", error);
+    return null;
   }
-  return pineconeClient;
 }
 
 export interface TransactionEmbedding {
@@ -32,13 +41,17 @@ export async function storeTransactionEmbedding(
 ): Promise<void> {
   try {
     const client = getPineconeClient();
+    if (!client) {
+      console.warn("Pinecone not configured, skipping embedding storage");
+      return;
+    }
     const indexName = process.env.PINECONE_INDEX_NAME || "transaction_summary";
     const index = client.index(indexName);
 
     await index.upsert([embedding]);
   } catch (error) {
     console.error("Error storing transaction embedding:", error);
-    throw error;
+    // Don't throw - allow app to continue without Pinecone
   }
 }
 
@@ -48,6 +61,10 @@ export async function getUserTransactions(
 ): Promise<any[]> {
   try {
     const client = getPineconeClient();
+    if (!client) {
+      // Pinecone not configured, return empty array
+      return [];
+    }
     const indexName = process.env.PINECONE_INDEX_NAME || "transaction_summary";
     const index = client.index(indexName);
 
