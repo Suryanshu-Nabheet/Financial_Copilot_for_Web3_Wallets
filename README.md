@@ -25,8 +25,7 @@ A full-stack Next.js application that connects to crypto wallets, analyzes trans
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd Web3
+git clone https://github.com/Suryanshu-Nabheet/Financial_Copilot_for_Web3_Wallets.git && cd Financial_Copilot_for_Web3_Wallets/Web3
 ```
 
 2. Install dependencies:
